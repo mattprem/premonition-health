@@ -1,10 +1,25 @@
-// API Reference: https://www.wix.com/velo/reference/api-overview/introduction
-// “Hello, World!” Example: https://learn-code.wix.com/en/article/hello-world
+import wixLocation from 'wix-location';
+import { revealOnEnter } from 'public/siteAnimations';
+import { onClickIfExists } from 'public/siteUtils';
 
 $w.onReady(function () {
-    // Write your JavaScript here
+  revealOnEnter($w, [
+    '#quickValueSection',
+    '#whyChooseSection',
+    '#howItWorksSection',
+    '#primaryCareSection',
+    '#membershipSection',
+    '#weightLossSection',
+    '#teamSection',
+    '#faqSection',
+    '#finalCtaSection'
+  ]);
 
-    // To select an element by ID use: $w('#elementID')
+  onClickIfExists($w, '#heroPrimaryCta', () => {
+    wixLocation.to('/membership-pricing');
+  });
 
-    // Click 'Preview' to run your code
+  onClickIfExists($w, '#heroSecondaryCta', () => {
+    wixLocation.to('/contact');
+  });
 });
