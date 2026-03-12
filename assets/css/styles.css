@@ -352,6 +352,10 @@ button {
   padding: var(--space-10) 0 var(--space-8);
 }
 
+.hero.hero-logo {
+  padding-top: var(--space-9);
+}
+
 .hero-grid,
 .split-layout,
 .grid-2,
@@ -404,6 +408,24 @@ button {
 .lead {
   max-width: 60ch;
   font-size: 1.14rem;
+}
+
+.logo-hero-panel {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: clamp(1.6rem, 3vw, 2.8rem);
+  text-align: center;
+}
+
+.hero-logo-image {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+}
+
+.logo-hero-panel .lead {
+  margin: 1rem auto 0;
 }
 
 .hero-actions,
@@ -562,16 +584,55 @@ button {
 .portal-card,
 .policy-card,
 .form-card {
-  padding: 1.45rem;
+  padding: clamp(1.3rem, 1.2rem + 0.7vw, 1.85rem);
 }
 
 .pricing-card {
-  padding: 1.6rem;
+  padding: clamp(1.45rem, 1.35rem + 0.8vw, 2rem);
 }
 
 .pricing-card.featured {
   border-color: rgba(46, 143, 149, 0.35);
   box-shadow: var(--shadow-card);
+}
+
+.card h3,
+.info-card h3,
+.pricing-card h3,
+.cta-panel h2,
+.step-card h3,
+.table-card h3,
+.contact-card h3,
+.team-card h3,
+.portal-card h3,
+.policy-card h1 {
+  margin-top: 0;
+}
+
+.card p:last-child,
+.info-card p:last-child,
+.pricing-card p:last-child,
+.cta-panel p:last-child,
+.step-card p:last-child,
+.contact-card p:last-child,
+.team-card p:last-child,
+.table-card p:last-child,
+.portal-card p:last-child,
+.policy-card p:last-child {
+  margin-bottom: 0;
+}
+
+.card,
+.info-card,
+.pricing-card,
+.cta-panel,
+.step-card,
+.table-card,
+.contact-card,
+.team-card,
+.portal-card,
+.policy-card {
+  overflow-wrap: anywhere;
 }
 
 .price {
@@ -738,6 +799,73 @@ button {
   border-bottom: 0;
 }
 
+.insurance-quiz {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.quiz-result {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  padding: 1rem 1.1rem;
+}
+
+.comparison-controls {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.compare-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.compare-options label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.45rem 0.85rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 780px;
+}
+
+.comparison-table th,
+.comparison-table td {
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.75rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.comparison-table th:first-child,
+.comparison-table td:first-child {
+  width: 220px;
+}
+
 .team-avatar {
   width: 72px;
   height: 72px;
@@ -750,6 +878,17 @@ button {
   font-family: var(--font-heading);
   font-size: 1.7rem;
   font-weight: 700;
+}
+
+.team-headshot {
+  width: 148px;
+  height: 148px;
+  border-radius: 22px;
+  object-fit: cover;
+  object-position: center;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
 }
 
 .footer {
@@ -854,6 +993,10 @@ button {
   .hero-visual,
   .feature-panel {
     min-height: 280px;
+  }
+
+  .quiz-grid {
+    grid-template-columns: 1fr;
   }
 
   .list-columns {

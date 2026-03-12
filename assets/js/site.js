@@ -8,6 +8,10 @@ const revealItems = document.querySelectorAll("[data-reveal]");
 const yearTargets = document.querySelectorAll("[data-year]");
 const contactForm = document.querySelector("[data-contact-form]");
 const formStatus = document.querySelector("[data-form-status]");
+const insuranceSelect = document.querySelector("[data-insurance-select]");
+const insuranceResult = document.querySelector("[data-insurance-result]");
+const compareOptions = document.querySelectorAll("[data-compare-option]");
+const comparisonTable = document.querySelector("[data-comparison-table]");
 
 function updateHeaderState() {
   if (!header) return;
@@ -50,7 +54,7 @@ function bindAccordion() {
 
       button.setAttribute("aria-expanded", String(!expanded));
       if (panel) panel.hidden = expanded;
-      if (icon) icon.textContent = expanded ? "+" : "−";
+      if (icon) icon.textContent = expanded ? "+" : "-";
     });
   });
 }
@@ -115,11 +119,86 @@ function bindContactForm() {
   });
 }
 
+function bindInsuranceQuiz() {
+  if (!insuranceSelect || !insuranceResult) return;
+
+  const recommendations = {
+    medicare: {
+      title: "Recommended: Medicare Path",
+      text: "You are likely best served in the Medicare option where ACPM billing is covered and care is handled like a standard in-network provider.",
+      href: "#medicare-membership"
+    },
+    medicaid: {
+      title: "Recommended: Medicaid Path",
+      text: "You can use the Medicaid option with no out-of-pocket cost for covered services. Availability may depend on the current waitlist.",
+      href: "#medicaid-membership"
+    },
+    commercial: {
+      title: "Recommended: Hybrid Membership",
+      text: "Commercial plans (United/UMR, BCBS, Aetna, Cigna, Ambetter/Wellcare) are usually best matched with the Hybrid path.",
+      href: "#hybrid-membership"
+    },
+    none: {
+      title: "Recommended: Direct Membership",
+      text: "Without insurance, most patients prefer the Direct Membership path for predictable monthly pricing.",
+      href: "#direct-membership"
+    },
+    other: {
+      title: "Recommended: Start with Hybrid Review",
+      text: "If you are unsure of coverage, start with the Hybrid path and call us so we can verify exact fit.",
+      href: "#hybrid-membership"
+    }
+  };
+
+  insuranceSelect.addEventListener("change", () => {
+    const selected = insuranceSelect.value;
+    const option = recommendations[selected];
+
+    if (!option) {
+      insuranceResult.textContent = "Select an option above to see your recommended path.";
+      return;
+    }
+
+    insuranceResult.innerHTML = `<strong>${option.title}</strong><p>${option.text}</p><p><a href="${option.href}">Jump to this section</a></p>`;
+  });
+}
+
+function bindComparisonTool() {
+  if (!compareOptions.length || !comparisonTable) return;
+
+  const getCheckedValues = () =>
+    Array.from(compareOptions)
+      .filter((input) => input.checked)
+      .map((input) => input.value);
+
+  const syncColumns = () => {
+    let checked = getCheckedValues();
+    if (!checked.length) {
+      compareOptions[0].checked = true;
+      checked = getCheckedValues();
+    }
+
+    comparisonTable.querySelectorAll("[data-plan-col]").forEach((cell) => {
+      const key = cell.getAttribute("data-plan-col");
+      const isVisible = checked.includes(key);
+      cell.style.display = isVisible ? "" : "none";
+    });
+  };
+
+  compareOptions.forEach((input) => {
+    input.addEventListener("change", syncColumns);
+  });
+
+  syncColumns();
+}
+
 updateHeaderState();
 bindDrawer();
 bindAccordion();
 bindReveal();
 setYear();
 bindContactForm();
+bindInsuranceQuiz();
+bindComparisonTool();
 
 window.addEventListener("scroll", updateHeaderState, { passive: true });
