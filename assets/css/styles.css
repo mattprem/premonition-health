@@ -601,6 +601,14 @@ button {
   height: 460px;
 }
 
+.photo-media.hero-photo.team-hero-photo {
+  height: auto;
+  max-height: 460px;
+  object-fit: contain;
+  object-position: center;
+  background: #f2f8f8;
+}
+
 .photo-media.story-photo {
   height: 320px;
 }
@@ -621,6 +629,10 @@ button {
   border-radius: 50%;
   margin: 0 auto 1rem;
   object-position: center 24%;
+}
+
+.why-people-section .photo-media.small-photo.staff-offset-down {
+  object-position: center 18%;
 }
 
 .paired-round-photos {
