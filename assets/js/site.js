@@ -159,7 +159,23 @@ function bindInsuranceQuiz() {
       return;
     }
 
-    insuranceResult.innerHTML = `<strong>${option.title}</strong><p>${option.text}</p><p><a href="${option.href}">Jump to this section</a></p>`;
+    insuranceResult.innerHTML = `<strong>${option.title}</strong><p>${option.text}</p><p><a href="${option.href}" data-quiz-jump>Jump to this section</a></p>`;
+  });
+
+  insuranceResult.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-quiz-jump]");
+    if (!link) return;
+
+    event.preventDefault();
+    const targetId = link.getAttribute("href");
+    if (!targetId) return;
+
+    const target = document.querySelector(targetId);
+    if (!target) return;
+
+    const headerOffset = header ? header.offsetHeight + 14 : 14;
+    const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
+    window.scrollTo({ top, behavior: "smooth" });
   });
 }
 
